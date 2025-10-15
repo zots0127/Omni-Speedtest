@@ -1,0 +1,218 @@
+[
+  {
+    "name": "北京 电信",
+    "host": "www.189.cn",
+    "port": 80,
+    "region": "华北",
+    "country": "中国",
+    "state": "北京",
+    "isp": "中国电信"
+  },
+  {
+    "name": "上海 电信",
+    "host": "sh.189.cn",
+    "port": 80,
+    "region": "华东",
+    "country": "中国",
+    "state": "上海",
+    "isp": "中国电信"
+  },
+  {
+    "name": "广州 电信",
+    "host": "gd.189.cn",
+    "port": 80,
+    "region": "华南",
+    "country": "中国",
+    "state": "广东",
+    "isp": "中国电信"
+  },
+  {
+    "name": "成都 电信",
+    "host": "sc.189.cn",
+    "port": 80,
+    "region": "西南",
+    "country": "中国",
+    "state": "四川",
+    "isp": "中国电信"
+  },
+  {
+    "name": "北京 联通",
+    "host": "www.10010.com",
+    "port": 80,
+    "region": "华北",
+    "country": "中国",
+    "state": "北京",
+    "isp": "中国联通"
+  },
+  {
+    "name": "上海 联通",
+    "host": "sh.10010.com",
+    "port": 80,
+    "region": "华东",
+    "country": "中国",
+    "state": "上海",
+    "isp": "中国联通"
+  },
+  {
+    "name": "广州 联通",
+    "host": "gd.10010.com",
+    "port": 80,
+    "region": "华南",
+    "country": "中国",
+    "state": "广东",
+    "isp": "中国联通"
+  },
+  {
+    "name": "北京 移动",
+    "host": "bj.10086.cn",
+    "port": 80,
+    "region": "华北",
+    "country": "中国",
+    "state": "北京",
+    "isp": "中国移动"
+  },
+  {
+    "name": "上海 移动",
+    "host": "sh.10086.cn",
+    "port": 80,
+    "region": "华东",
+    "country": "中国",
+    "state": "上海",
+    "isp": "中国移动"
+  },
+  {
+    "name": "广州 移动",
+    "host": "gd.10086.cn",
+    "port": 80,
+    "region": "华南",
+    "country": "中国",
+    "state": "广东",
+    "isp": "中国移动"
+  },
+  {
+    "name": "香港",
+    "host": "www.hk.cn",
+    "port": 80,
+    "region": "华南",
+    "country": "中国",
+    "state": "香港",
+    "isp": "综合"
+  },
+  {
+    "name": "东京 日本",
+    "host": "www.yahoo.co.jp",
+    "port": 80,
+    "region": "东亚",
+    "country": "日本",
+    "state": "东京",
+    "isp": "国际"
+  },
+  {
+    "name": "首尔 韩国",
+    "host": "www.naver.com",
+    "port": 80,
+    "region": "东亚",
+    "country": "韩国",
+    "state": "首尔",
+    "isp": "国际"
+  },
+  {
+    "name": "新加坡",
+    "host": "www.singtel.com",
+    "port": 80,
+    "region": "东南亚",
+    "country": "新加坡",
+    "state": "新加坡",
+    "isp": "国际"
+  },
+  {
+    "name": "洛杉矶 美西",
+    "host": "www.ucla.edu",
+    "port": 80,
+    "region": "北美西部",
+    "country": "美国",
+    "state": "加利福尼亚",
+    "isp": "国际"
+  },
+  {
+    "name": "旧金山 美西",
+    "host": "www.sfgov.org",
+    "port": 80,
+    "region": "北美西部",
+    "country": "美国",
+    "state": "加利福尼亚",
+    "isp": "国际"
+  },
+  {
+    "name": "纽约 美东",
+    "host": "www.ny.gov",
+    "port": 80,
+    "region": "北美东部",
+    "country": "美国",
+    "state": "纽约",
+    "isp": "国际"
+  },
+  {
+    "name": "华盛顿 美东",
+    "host": "www.whitehouse.gov",
+    "port": 80,
+    "region": "北美东部",
+    "country": "美国",
+    "state": "华盛顿特区",
+    "isp": "国际"
+  },
+  {
+    "name": "伦敦 英国",
+    "host": "www.gov.uk",
+    "port": 80,
+    "region": "西欧",
+    "country": "英国",
+    "state": "伦敦",
+    "isp": "国际"
+  },
+  {
+    "name": "法兰克福 德国",
+    "host": "www.bundesregierung.de",
+    "port": 80,
+    "region": "西欧",
+    "country": "德国",
+    "state": "黑森",
+    "isp": "国际"
+  },
+  {
+    "name": "悉尼 澳大利亚",
+    "host": "www.sydney.edu.au",
+    "port": 80,
+    "region": "大洋洲",
+    "country": "澳大利亚",
+    "state": "新南威尔士",
+    "isp": "国际"
+  },
+  {
+    "name": "巴黎 法国",
+    "host": "www.paris.fr",
+    "port": 80,
+    "region": "西欧",
+    "country": "法国",
+    "state": "法兰西岛",
+    "isp": "国际"
+  },
+  {
+    "name": "多伦多 加拿大",
+    "host": "www.toronto.ca",
+    "port": 80,
+    "region": "北美",
+    "country": "加拿大",
+    "state": "安大略",
+    "isp": "国际"
+  },
+  {
+    "name": "莫斯科 俄罗斯",
+    "host": "www.mos.ru",
+    "port": 80,
+    "region": "东欧",
+    "country": "俄罗斯",
+    "state": "莫斯科",
+    "isp": "国际"
+  }
+]

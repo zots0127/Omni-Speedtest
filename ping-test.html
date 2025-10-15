@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+<title>全球延迟测试 | Omni-Speedtest</title>
+<link rel="shortcut icon" href="favicon.ico">
+<style type="text/css">
+    html,body{
+        border:none; padding:0; margin:0;
+        background:#FFFFFF;
+        color:#202020;
+        font-family:"Roboto",sans-serif;
+    }
+    body{
+        text-align:center;
+        padding: 20px;
+    }
+    h1{
+        color:#404040;
+        margin-bottom: 10px;
+    }
+    .nav-links {
+        margin: 20px 0;
+        padding: 10px;
+        background: #f5f5f5;
+        border-radius: 5px;
+    }
+    .nav-links a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: #6060AA;
+        font-weight: 500;
+    }
+    .nav-links a:hover {
+        color: #4040FF;
+    }
+    .test-controls {
+        margin: 30px auto;
+        max-width: 900px;
+    }
+    .btn {
+        display:inline-block;
+        margin:10px;
+        color:#FFFFFF;
+        background-color:#6060AA;
+        border:none;
+        border-radius:0.3em;
+        padding: 12px 24px;
+        cursor:pointer;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+    .btn:hover{
+        background-color:#4040FF;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .btn:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+    .btn-success {
+        background-color:#309030;
+    }
+    .btn-success:hover {
+        background-color:#207020;
+    }
+    .filter-section {
+        margin: 20px auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        max-width: 900px;
+    }
+    .filter-group {
+        margin: 15px 0;
+        text-align: left;
+    }
+    .filter-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #404040;
+    }
+    .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+    }
+    .checkbox-item input {
+        margin-right: 5px;
+    }
+    #progressBar{
+        width:90%;
+        height:0.5em;
+        background-color:#EEEEEE;
+        position:relative;
+        display:block;
+        margin:20px auto;
+        border-radius: 4px;
+    }
+    #progress{
+        position:absolute;
+        top:0; left:0;
+        height:100%;
+        width:0%;
+        transition: width 0.5s;
+        background-color:#90BBFF;
+        border-radius: 4px;
+    }
+    #status {
+        margin: 20px;
+        font-size: 18px;
+        color: #404040;
+    }
+    .results-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        text-align: left;
+    }
+    .result-card {
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .result-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .result-name {
+        font-size: 18px;
+        font-weight: bold;
+        color: #404040;
+    }
+    .result-latency {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .latency-good {
+        color: #309030;
+    }
+    .latency-medium {
+        color: #FF8800;
+    }
+    .latency-bad {
+        color: #FF3030;
+    }
+    .result-details {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        color: #606060;
+        font-size: 14px;
+    }
+    .result-detail-item {
+        display: flex;
+        gap: 5px;
+    }
+    .result-detail-label {
+        font-weight: 500;
+    }
+    .localhost-results {
+        background: #f0f8ff;
+        border: 2px solid #6060AA;
+    }
+    @media (prefers-color-scheme: dark) {
+        html, body {
+            background: #181818;
+            color: #E0E0E0;
+        }
+        h1 {
+            color: #FFFFFF;
+        }
+        .nav-links {
+            background: #282828;
+        }
+        .nav-links a {
+            color: #AAAAFF;
+        }
+        .nav-links a:hover {
+            color: #CCCCFF;
+        }
+        .filter-section {
+            background: #282828;
+        }
+        .filter-group label {
+            color: #E0E0E0;
+        }
+        #progressBar {
+            background-color: #404040;
+        }
+        #progress {
+            background-color: #6060FF;
+        }
+        #status {
+            color: #E0E0E0;
+        }
+        .result-card {
+            background: #282828;
+            border-color: #404040;
+        }
+        .result-name {
+            color: #E0E0E0;
+        }
+        .result-details {
+            color: #A0A0A0;
+        }
+        .localhost-results {
+            background: #1a2a3a;
+            border-color: #AAAAFF;
+        }
+    }
+    @media all and (max-width:768px){
+        body{
+            font-size: 14px;
+        }
+        .checkbox-group {
+            flex-direction: column;
+        }
+        .result-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+</head>
+<body>
+<h1>全球延迟测试</h1>
+<p>测试您到全球各地服务器的网络延迟</p>
+
+<div class="nav-links">
+    <a href="./index.html">速度测试</a>
+    <a href="./ping-test.html">延迟测试</a>
+    <a href="./ping-dashboard.html">延迟分析</a>
+    <a href="./results.html">测速记录</a>
+    <a href="./reports.html">测试报告</a>
+</div>
+
+<div class="test-controls">
+    <button id="testLocalBtn" class="btn" onclick="testLocalhost()">测试本机延迟</button>
+    <button id="testGlobalBtn" class="btn" onclick="testGlobalServers()">测试全球服务器</button>
+    <button id="testSelectedBtn" class="btn" onclick="testSelectedServers()">测试选中服务器</button>
+    <button id="generateReportBtn" class="btn btn-success" onclick="generateReport()">生成测试报告</button>
+</div>
+
+<div class="filter-section">
+    <div class="filter-group">
+        <label>选择地区:</label>
+        <div class="checkbox-group" id="regionFilters"></div>
+    </div>
+    <div class="filter-group">
+        <label>选择运营商:</label>
+        <div class="checkbox-group" id="ispFilters"></div>
+    </div>
+    <div class="filter-group">
+        <label>选择国家/地区:</label>
+        <div class="checkbox-group" id="countryFilters"></div>
+    </div>
+</div>
+
+<div id="progressBar" style="display:none;"><div id="progress"></div></div>
+<div id="status"></div>
+
+<div class="results-container" id="results"></div>
+
+<script>
+let globalServers = [];
+let clientInfo = null;
+
+async function loadServers() {
+    try {
+        const response = await fetch('./global-servers.json');
+        globalServers = await response.json();
+        populateFilters();
+    } catch (error) {
+        console.error('Failed to load servers:', error);
+        document.getElementById('status').textContent = '加载服务器列表失败';
+    }
+}
+
+async function getClientInfo() {
+    if (clientInfo) return clientInfo;
+    
+    try {
+        const response = await fetch('./backend/getIP.php');
+        const data = await response.text();
+        const parts = data.split(' - ');
+        clientInfo = {
+            ip: parts[0] || '',
+            isp: parts[1] || 'Unknown',
+            addr: parts[2] || 'Unknown'
+        };
+        return clientInfo;
+    } catch (error) {
+        console.error('Failed to get client info:', error);
+        return { ip: '', isp: 'Unknown', addr: 'Unknown' };
+    }
+}
+
+function populateFilters() {
+    const regions = new Set();
+    const isps = new Set();
+    const countries = new Set();
+    
+    globalServers.forEach(server => {
+        regions.add(server.region);
+        isps.add(server.isp);
+        countries.add(server.country);
+    });
+    
+    const regionFilters = document.getElementById('regionFilters');
+    regions.forEach(region => {
+        const div = document.createElement('div');
+        div.className = 'checkbox-item';
+        div.innerHTML = `<input type="checkbox" id="region_${region}" value="${region}" checked> <label for="region_${region}">${region}</label>`;
+        regionFilters.appendChild(div);
+    });
+    
+    const ispFilters = document.getElementById('ispFilters');
+    isps.forEach(isp => {
+        const div = document.createElement('div');
+        div.className = 'checkbox-item';
+        div.innerHTML = `<input type="checkbox" id="isp_${isp}" value="${isp}" checked> <label for="isp_${isp}">${isp}</label>`;
+        ispFilters.appendChild(div);
+    });
+    
+    const countryFilters = document.getElementById('countryFilters');
+    countries.forEach(country => {
+        const div = document.createElement('div');
+        div.className = 'checkbox-item';
+        div.innerHTML = `<input type="checkbox" id="country_${country}" value="${country}" checked> <label for="country_${country}">${country}</label>`;
+        countryFilters.appendChild(div);
+    });
+}
+
+function getSelectedServers() {
+    const selectedRegions = Array.from(document.querySelectorAll('#regionFilters input:checked')).map(cb => cb.value);
+    const selectedIsps = Array.from(document.querySelectorAll('#ispFilters input:checked')).map(cb => cb.value);
+    const selectedCountries = Array.from(document.querySelectorAll('#countryFilters input:checked')).map(cb => cb.value);
+    
+    return globalServers.filter(server => 
+        selectedRegions.includes(server.region) &&
+        selectedIsps.includes(server.isp) &&
+        selectedCountries.includes(server.country)
+    );
+}
+
+function getLatencyClass(latency) {
+    if (latency < 100) return 'latency-good';
+    if (latency < 300) return 'latency-medium';
+    return 'latency-bad';
+}
+
+function displayResult(result, isLocalhost = false) {
+    const resultsDiv = document.getElementById('results');
+    const card = document.createElement('div');
+    card.className = 'result-card' + (isLocalhost ? ' localhost-results' : '');
+    
+    if (result.success) {
+        const latencyClass = getLatencyClass(result.latency);
+        card.innerHTML = `
+            <div class="result-header">
+                <div class="result-name">${result.name}</div>
+                <div class="result-latency ${latencyClass}">${result.latency} ms</div>
+            </div>
+            <div class="result-details">
+                <div class="result-detail-item">
+                    <span class="result-detail-label">主机:</span>
+                    <span>${result.host}</span>
+                </div>
+                ${result.region ? `<div class="result-detail-item">
+                    <span class="result-detail-label">地区:</span>
+                    <span>${result.region}</span>
+                </div>` : ''}
+                ${result.country ? `<div class="result-detail-item">
+                    <span class="result-detail-label">国家:</span>
+                    <span>${result.country}</span>
+                </div>` : ''}
+                ${result.server_isp ? `<div class="result-detail-item">
+                    <span class="result-detail-label">运营商:</span>
+                    <span>${result.server_isp}</span>
+                </div>` : ''}
+                ${result.jitter !== undefined ? `<div class="result-detail-item">
+                    <span class="result-detail-label">抖动:</span>
+                    <span>${result.jitter} ms</span>
+                </div>` : ''}
+                ${result.min_latency !== undefined ? `<div class="result-detail-item">
+                    <span class="result-detail-label">最小延迟:</span>
+                    <span>${result.min_latency} ms</span>
+                </div>` : ''}
+                ${result.max_latency !== undefined ? `<div class="result-detail-item">
+                    <span class="result-detail-label">最大延迟:</span>
+                    <span>${result.max_latency} ms</span>
+                </div>` : ''}
+            </div>
+        `;
+    } else {
+        card.innerHTML = `
+            <div class="result-header">
+                <div class="result-name">${result.name}</div>
+                <div class="result-latency latency-bad">失败</div>
+            </div>
+            <div class="result-details">
+                <div class="result-detail-item">
+                    <span class="result-detail-label">主机:</span>
+                    <span>${result.host}</span>
+                </div>
+                <div class="result-detail-item">
+                    <span class="result-detail-label">错误:</span>
+                    <span>${result.error || '连接超时'}</span>
+                </div>
+            </div>
+        `;
+    }
+    
+    resultsDiv.appendChild(card);
+}
+
+async function testLocalhost() {
+    const btn = document.getElementById('testLocalBtn');
+    btn.disabled = true;
+    document.getElementById('status').textContent = '正在测试本机延迟...';
+    document.getElementById('results').innerHTML = '';
+    
+    try {
+        const info = await getClientInfo();
+        
+        const formData = new FormData();
+        formData.append('isp', info.isp);
+        formData.append('addr', info.addr);
+        
+        const response = await fetch('./backend/ping-api.php?action=localhost', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            displayResult({
+                success: true,
+                name: '本机延迟测试',
+                host: window.location.hostname,
+                latency: data.avg_latency,
+                min_latency: data.min_latency,
+                max_latency: data.max_latency,
+                jitter: data.jitter
+            }, true);
+            document.getElementById('status').textContent = '本机测试完成！';
+        } else {
+            document.getElementById('status').textContent = '本机测试失败: ' + data.error;
+        }
+    } catch (error) {
+        console.error('Localhost test failed:', error);
+        document.getElementById('status').textContent = '本机测试失败';
+    }
+    
+    btn.disabled = false;
+}
+
+async function testGlobalServers() {
+    await testServers(globalServers);
+}
+
+async function testSelectedServers() {
+    const selected = getSelectedServers();
+    if (selected.length === 0) {
+        alert('请至少选择一个服务器');
+        return;
+    }
+    await testServers(selected);
+}
+
+async function testServers(servers) {
+    const btn = document.getElementById('testGlobalBtn');
+    const selectedBtn = document.getElementById('testSelectedBtn');
+    btn.disabled = true;
+    selectedBtn.disabled = true;
+    
+    document.getElementById('results').innerHTML = '';
+    document.getElementById('progressBar').style.display = 'block';
+    document.getElementById('progress').style.width = '0%';
+    document.getElementById('status').textContent = `准备测试 ${servers.length} 个服务器...`;
+    
+    try {
+        const info = await getClientInfo();
+        
+        const formData = new FormData();
+        formData.append('targets', JSON.stringify(servers));
+        formData.append('isp', info.isp);
+        formData.append('addr', info.addr);
+        
+        let completed = 0;
+        
+        for (let i = 0; i < servers.length; i++) {
+            const server = servers[i];
+            document.getElementById('status').textContent = `正在测试: ${server.name} (${i + 1}/${servers.length})`;
+            
+            const serverFormData = new FormData();
+            serverFormData.append('targets', JSON.stringify([server]));
+            serverFormData.append('isp', info.isp);
+            serverFormData.append('addr', info.addr);
+            
+            try {
+                const response = await fetch('./backend/ping-api.php?action=ping-multiple', {
+                    method: 'POST',
+                    body: serverFormData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.results.length > 0) {
+                    displayResult(data.results[0]);
+                }
+            } catch (error) {
+                console.error(`Failed to test ${server.name}:`, error);
+                displayResult({
+                    success: false,
+                    name: server.name,
+                    host: server.host,
+                    error: '请求失败'
+                });
+            }
+            
+            completed++;
+            const progress = (completed / servers.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+        
+        document.getElementById('status').textContent = `测试完成！已测试 ${servers.length} 个服务器`;
+        document.getElementById('progressBar').style.display = 'none';
+    } catch (error) {
+        console.error('Global test failed:', error);
+        document.getElementById('status').textContent = '测试失败';
+    }
+    
+    btn.disabled = false;
+    selectedBtn.disabled = false;
+}
+
+async function generateReport() {
+    const btn = document.getElementById('generateReportBtn');
+    btn.disabled = true;
+    
+    try {
+        document.getElementById('status').textContent = '正在生成报告...';
+        
+        const response = await fetch('./backend/report-generator.php?action=generate&type=all');
+        const data = await response.json();
+        
+        if (data.success) {
+            document.getElementById('status').textContent = '报告生成成功！正在跳转...';
+            setTimeout(() => {
+                window.location.href = './reports.html';
+            }, 1000);
+        } else {
+            document.getElementById('status').textContent = '报告生成失败: ' + data.error;
+        }
+    } catch (error) {
+        console.error('Report generation failed:', error);
+        document.getElementById('status').textContent = '报告生成失败';
+    }
+    
+    btn.disabled = false;
+}
+
+loadServers();
+</script>
+</body>
+</html>
